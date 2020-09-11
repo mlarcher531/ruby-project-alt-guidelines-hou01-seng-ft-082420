@@ -6,7 +6,7 @@ def welcome_screen
   system "clear"
   puts $pastel1.green($font.write("IBA Cocktail App"))
   p "Welcome to The Un-Official IBA Cocktail App!"
-  acct = $prompt.yes?("Do you have an account?")
+  acct = $prompt.yes?($pastel1.cyan("Do you have an account?"))
   if acct == false; new_user_info; elsif acct == true; user_login end
 end
 
@@ -15,6 +15,12 @@ def new_user_info
   username = $prompt.ask("Please pick a username:")
   npassword = $prompt.mask("Please set your password:")
   #display_info(username, npassword)
+  u_name = User.all.collect {|user| user.name}
+  if u_name.include? username
+    puts $prompt.keypress($pastel1.red("That username is already taken, press any key to try again."))
+    new_user_info
+  end
+  # binding.pry
   User.create(name: username, password: npassword, status: "active")
   system "clear"
   p "Welcome to the family #{username}, let's get drunk!"
@@ -182,7 +188,7 @@ def liquor_ask
   system "clear"
   answer = $prompt.select("What kind of cocktail would you like today?",
                           %w(Vodka Gin Whiskey Bourbon Tequila Rum Cognac Campari Brandy
-                             P.G.A. Chambord Mezcal Prosecco Cocci_Americano Galliano Creme_de_Menthe Creme_de_cassis Spiced_Rum Champagne).sort, per_page: 20)
+                             P.G.A. Chambord Mezcal Prosecco Cocci_Americano Galliano Creme_de_Menthe Creme_de_Cassis Spiced_Rum Champagne), per_page: 20)
   p "Let's see what we can find...."
   drinks_by_liquor(answer)
 end
@@ -224,9 +230,26 @@ def drink_details(picked_drink)
   # binding.pry
   ing_list = pl_name, sl_name, pm_name, sm_name
   puts $pastel1.blue($font.write("#{name}"))
+  if ing_list[0] != nil && ing_list[1] != nil && ing_list[2] != nil && ing_list[3] != nil 
   p "#{name}s are made with #{ing_list[0]}, #{ing_list[1]}, #{ing_list[2]}, and #{ing_list[3]}."
+  elsif ing_list[0] != nil && ing_list[1] != nil && ing_list[2] != nil
+    p "#{name}s are made with #{ing_list[0]}, #{ing_list[1]}, and #{ing_list[2]}."
+  elsif ing_list[0] != nil && ing_list[1] != nil
+    p "#{name}s are made with #{ing_list[0]}, and #{ing_list[1]}."
+  else ing_list[0] != nil && ing_list[2] != nil && ing_list[3] != nil 
+    p "#{name}s are made with #{ing_list[0]}, #{ing_list[2]}, and #{ing_list[3]}."
+  end
 
-  fav_add = $prompt.yes?("Would you like to add this drink to your favorite list?")
+
+
+
+
+
+
+
+
+
+  fav_add = ($prompt.yes?($pastel1.green("Would you like to add this drink to your favorite list?")))
   if fav_add == true
     a = Fav_List.where(name: @user)
     b = a[0]
