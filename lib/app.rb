@@ -3,7 +3,6 @@ $font = TTY::Font.new(:starwars)
 $pastel1 = Pastel.new
 
 def welcome_screen
-  what_do = nil
   system "clear"
   puts $pastel1.green($font.write("IBA Cocktail App"))
   p "Welcome to The Un-Official IBA Cocktail App!"
@@ -83,7 +82,12 @@ def show_fav_list
     list = list_drinks.collect { |drink| drink[0].name }
     system "clear"
     puts $pastel1.green($font.write("Favorites"))
-    fav_drink = $prompt.select("Pick one of your favorites to see other drinks like it!", list)
+    fav_drink = $prompt.select("Pick one of your favorites to see other drinks like it!", list ,'Exit')
+    if fav_drink == 'Exit'
+      system "clear"
+      what_to_do
+    else
+    end
     a = Drink.where(name: fav_drink)
     b = a[0][:liquor_id]
     c = Liquor.where(id: b)
@@ -99,7 +103,12 @@ def show_fav_list
     list = list_drinks.collect { |drink| drink[0].name }
     system "clear"
     puts $pastel1.green($font.write("Favorites"))
-    fav_drink = $prompt.select("Pick one of your favorites to see other drinks like it!", list)
+    fav_drink = $prompt.select("Pick one of your favorites to see other drinks like it!",list ,'Exit')
+    if fav_drink == 'Exit'
+      system "clear"
+      what_to_do
+    else
+    end
     a = Drink.where(name: fav_drink)
     b = a[0][:liquor_id]
     c = Liquor.where(id: b)
@@ -114,7 +123,12 @@ def show_fav_list
     list = list_drinks.collect { |drink| drink[0].name }
     system "clear"
     puts $pastel1.green($font.write("Favorites"))
-    fav_drink = $prompt.select("Pick one of your favorites to see other drinks like it!", list)
+    fav_drink = $prompt.select("Pick one of your favorites to see other drinks like it!", list ,'Exit')
+    if fav_drink == 'Exit'
+      system "clear"
+      what_to_do
+    else
+    end
     a = Drink.where(name: fav_drink)
     b = a[0][:liquor_id]
     c = Liquor.where(id: b)
@@ -128,7 +142,12 @@ def show_fav_list
     list = list_drinks.collect { |drink| drink[0].name }
     system "clear"
     puts $pastel1.green($font.write("Favorites"))
-    fav_drink = $prompt.select("Pick one of your favorites to see other drinks like it!", list)
+    fav_drink = $prompt.select("Pick one of your favorites to see other drinks like it!", list ,'Exit')
+    if fav_drink == 'Exit'
+      system "clear"
+      what_to_do
+    else
+    end
     a = Drink.where(name: fav_drink)
     b = a[0][:liquor_id]
     c = Liquor.where(id: b)
@@ -140,7 +159,12 @@ def show_fav_list
     # binding.pry
     system "clear"
     puts $pastel1.green($font.write("Favorites"))
-    fav_drink = $prompt.select("Pick one of your favorites to see other drinks like it!", drink1[0][:name])
+    fav_drink = $prompt.select("Pick one of your favorites to see other drinks like it!", drink1[0][:name], 'Exit')
+    if fav_drink == 'Exit'
+      system "clear"
+      what_to_do
+    else
+    end
     a = Drink.where(name: fav_drink)
     b = a[0][:liquor_id]
     c = Liquor.where(id: b)

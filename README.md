@@ -34,5 +34,5 @@ https://en.wikipedia.org/wiki/List_of_IBA_official_cocktails
 
 --------
 -------------------------------------------------
-Powered by coffee and tears..
+Powered by coffee..
 
