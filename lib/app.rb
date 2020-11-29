@@ -196,14 +196,11 @@ end
 def drinks_by_liquor(answer)
   system "clear"
   a = Liquor.where(name: answer)
-  # binding.pry
   b = Drink.where(liquor_id: a[0][:id])
-  # binding.pry
   c = b.collect { |drink| drink.name }
   d = c.each do |name|
     name
   end
-  # binding.pry
   picked_drink = $prompt.select("#{@user}, check out these drinks that use #{a[0][:name]}:", d, per_page: 10)
   drink_details(picked_drink)
 end
